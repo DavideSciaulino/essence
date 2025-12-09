@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Print logo
 print_header(){
     cat << "EOF"
