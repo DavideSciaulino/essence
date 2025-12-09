@@ -19,6 +19,19 @@ else
     echo "Error: utils.sh not found!"
     exit 1
 fi
+
+# Root check
+if [ "$EUID" -eq 0 ]; then
+    print_error "Don't run as root. Use your regular user."
+    exit 1
+fi
     
 clear
 print_header
+sleep 1
+
+echo "Starting the installation process..."
+
+#Update and yay
+echo "Updating system..."
+#sudo pacman -Syu --noconfirm #remove comment: now disabled for debugging 
