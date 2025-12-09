@@ -20,7 +20,7 @@ HYPR_PKGS=(
 UI_PKGS=(
     waybar
     rofi
-    dunst
+    swaync
 )
 
 # 3. Audio and Media
@@ -60,5 +60,11 @@ DEV_PKGS=(
 
 # 6. Network (Opzionale ma consigliato)
 NET_PKGS=(
+    networkmanager
     network-manager-applet       
+)
+
+# Services to enable
+SERVICES=(
+  NetworkManager.service
 )
