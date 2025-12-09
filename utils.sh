@@ -21,7 +21,7 @@ ask_choice(){
     local option2_name=$4
     local option2_pkg=$5
 
-    echo -e "\n[CHOICE] Which $category_name do you want to install?"
+    echo "[CHOICE] Which $category_name do you want to install?"
     echo "  1) $option1_name"
     echo "  2) $option2_name"
     read -p "Type 1 or 2 (Default 1): " choice
@@ -47,7 +47,7 @@ is_group_installed() {
 }
 
 # Function to install packages if not already installed
-install_packages() {
+install_pkgs() {
   local pkgs=("$@")
   local pkgs_needed=()
 

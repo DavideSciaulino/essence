@@ -34,7 +34,9 @@ echo "Starting the installation process..."
 
 #Update system
 echo "Updating system..."
-#sudo pacman -Syu --noconfirm #remove comment: now disabled for debugging 
+sudo pacman -Syu --noconfirm
+
+clear
 
 # Install yay
 if ! command -v yay &> /dev/null; then
@@ -55,3 +57,57 @@ if ! command -v yay &> /dev/null; then
 else
   echo "yay is already installed"
 fi
+
+#Source pkgs.sh
+if [[ -f "$SCRIPT_DIR/pkgs.sh" ]]; then
+    source "$SCRIPT_DIR/pkgs.sh"
+else
+    echo "Error: pkgs.sh not found!"
+    exit 1
+fi
+
+#install pkgs
+echo "Found ${#FINAL_PKGS[@]} pkgs"
+echo "Starting the installation process..."
+
+echo "Installing Hyprland packages..."
+install_pkgs "${HYPR_PKGS[@]}"
+
+echo "Installing UI packages..."
+install_pkgs "${UI_PKGS[@]}"
+
+echo "Installing Media packages..."
+install_pkgs "${MEDIA_PKGS[@]}"
+
+echo "Installing Fonts packages..."
+install_pkgs "${FONTS_PKGS[@]}"
+
+echo "Installing Utils packages..."
+install_pkgs "${UTILS_PKGS[@]}"
+
+echo "Installing Dev packages..."
+install_pkgs "${DEV_PKGS[@]}"
+
+echo "Installing Network packages..."
+install_pkgs "${NET_PKGS[@]}"
+
+echo "Installing User Choise packages..."
+install_pkgs "${USER_CHOISE_PKGS[@]}"
+
+# Enable services
+echo "Configuring services..."
+for service in "${SERVICES[@]}"; do
+  if ! systemctl is-enabled "$service" &> /dev/null; then
+    echo "Enabling $service..."
+    sudo systemctl enable "$service"
+  else
+    echo "$service is already enabled"
+  fi
+done
+
+if [[ " ${USER_CHOICE_PKGS[*]} " =~ " zsh " ]]; then
+    print_msg "Imposto Zsh come default..."
+    chsh -s $(which zsh) $USER
+fi
+
+echo "Done! Restart your system.

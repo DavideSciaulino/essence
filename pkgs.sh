@@ -24,7 +24,7 @@ UI_PKGS=(
 )
 
 # 3. Audio and Media
-AUDIO_PKGS=(
+MEDIA_PKGS=(
     pipewire
     pipewire-pulse
     wireplumber
@@ -67,4 +67,44 @@ NET_PKGS=(
 # Services to enable
 SERVICES=(
   NetworkManager.service
+)
+
+echo "Configuring user preferences..."
+
+#Custom pkgs
+USER_CHOICE_PKGS=()
+
+#File Manager
+FM=$(ask_choice "File Manager" "Thunar" "thunar" "Yazi" "yazi")
+USER_CHOICE_PKGS+=("$FM")
+
+if [[ "$FM" == "yazi" ]]; then
+    USER_CHOICE_PKGS+=(ffmpeg poppler)
+elif [[ "$FM" == "thunar" ]]; then
+    USER_CHOICE_PKGS+=(thunar-archive-plugin)
+fi
+
+# Terminale
+TERM=$(ask_choice "Terminal" "Kitty" "kitty" "Alacritty" "alacritty")
+USER_CHOICE_PKGS+=("$TERM")
+
+# Browser
+BROWSER=$(ask_choice "Browser" "Firefox" "firefox" "Brave" "brave-bin")
+USER_CHOICE_PKGS+=("$BROWSER")
+
+# Shell
+SHELL_CHOICE=$(ask_choice "Shell" "Bash" "bash-completion" "Zsh" "zsh")
+USER_CHOICE_PKGS+=("$SHELL_CHOICE")
+
+echo "Preparing packages list..."
+
+#Final List (used for info)
+FINAL_PKGS=(
+    "${HYPR_PKGS[@]}"
+    "${UI_PKGS[@]}"
+    "${AUDIO_PKGS[@]}"
+    "${FONTS_PKGS[@]}"
+    "${DEV_PKGS[@]}"
+    "${NET_PKGS[@]}"
+    "${USER_CHOICE_PKGS[@]}"
 )
