@@ -35,3 +35,30 @@ ask_choice(){
             ;;
     esac
 }
+
+#Check if a package is installed
+is_installed() {
+  pacman -Qi "$1" &> /dev/null
+}
+
+#Check if a package is installed
+is_group_installed() {
+  pacman -Qg "$1" &> /dev/null
+}
+
+# Function to install packages if not already installed
+install_packages() {
+  local pkgs=("$@")
+  local pkgs_needed=()
+
+  for pkg in "${pkgs[@]}"; do
+    if ! is_installed "$pkg" && ! is_group_installed "$pkg"; then
+      pkgs_needed+=("$pkg")
+    fi
+  done
+
+  if [ ${#pkgs_needed[@]} -ne 0 ]; then
+    echo "Installing: ${pkgs_needed[*]}"
+    yay -S --noconfirm "${pkgs_needed[@]}"
+  fi
+} 
