@@ -94,7 +94,7 @@ echo "Installing Network packages..."
 install_pkgs "${NET_PKGS[@]}"
 
 echo "Installing User Choise packages..."
-install_pkgs "${USER_CHOISE_PKGS[@]}"
+install_pkgs "${USER_CHOICE_PKGS[@]}"
 
 # Enable services
 echo "Configuring services..."
@@ -108,9 +108,8 @@ for service in "${SERVICES[@]}"; do
 done
 
 if [[ " ${USER_CHOICE_PKGS[*]} " =~ " zsh " ]]; then
-    print_msg "Imposto Zsh come default..."
+    echo "Imposto Zsh come default..."
     chsh -s $(which zsh) $USER
 fi
 
-echo "Done! Restart your system.
-EOF
+echo "Done! Restart your system."

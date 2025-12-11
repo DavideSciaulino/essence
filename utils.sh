@@ -21,17 +21,22 @@ ask_choice(){
     local option2_name=$4
     local option2_pkg=$5
 
+    __RET=""
+
     echo "[CHOICE] Which $category_name do you want to install?" >&2
     echo "  1) $option1_name" >&2
     echo "  2) $option2_name" >&2
-    read -p "Type 1 or 2 (Default 1): " choise
+    read -p "Type 1 or 2 (Default 1): " choice
 
     case $choice in
-        2)
-            echo "$option2_pkg"
+        1|1\ |"1)"|"1.")
+            __RET="$option1_pkg"
+            ;;
+        2|2\ |"2)"|"2.")
+            __RET="$option2_pkg"
             ;;
         *)
-            echo "$option1_pkg"
+           __RET="$option1_pkg"
             ;;
     esac
 }

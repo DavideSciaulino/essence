@@ -66,8 +66,20 @@ NET_PKGS=(
 
 # Services to enable
 SERVICES=(
-  NetworkManager.service
+    NetworkManager.service
 )
+
+# ==============================================================================
+# DEFINITION OF CUSTOM PACKAGES
+# ==============================================================================
+
+#Source utils.sh
+if [[ -f "$SCRIPT_DIR/utils.sh" ]]; then
+    source "$SCRIPT_DIR/utils.sh"
+else
+    echo "Error: utils.sh not found!"
+    exit 1
+fi
 
 echo "Configuring user preferences..."
 
@@ -75,8 +87,9 @@ echo "Configuring user preferences..."
 USER_CHOICE_PKGS=()
 
 #File Manager
-FM=$(ask_choice "File Manager" "Thunar" "thunar" "Yazi" "yazi")
-USER_CHOICE_PKGS+=("$FM")
+ask_choice "File Manager" "Thunar" "thunar" "Yazi" "yazi"
+FM=$__RET
+USER_CHOICE_PKGS+=("$FM")   
 
 if [[ "$FM" == "yazi" ]]; then
     USER_CHOICE_PKGS+=(ffmpeg poppler)
@@ -85,16 +98,20 @@ elif [[ "$FM" == "thunar" ]]; then
 fi
 
 # Terminale
-TERM=$(ask_choice "Terminal" "Kitty" "kitty" "Alacritty" "alacritty")
-USER_CHOICE_PKGS+=("$TERM")
+ask_choice "Terminal" "Kitty" "kitty" "Alacritty" "alacritty"
+TERM=$__RET
+USER_CHOICE_PKGS+=("$TERM")      
+
 
 # Browser
-BROWSER=$(ask_choice "Browser" "Firefox" "firefox" "Brave" "brave-bin")
-USER_CHOICE_PKGS+=("$BROWSER")
+ask_choice "Browser" "Firefox" "firefox" "Brave" "brave-bin"
+BROWSER=$__RET
+USER_CHOICE_PKGS+=("$BROWSER")             
 
 # Shell
-SHELL_CHOICE=$(ask_choice "Shell" "Bash" "bash-completion" "Zsh" "zsh")
-USER_CHOICE_PKGS+=("$SHELL_CHOICE")
+ask_choice "Shell" "Bash" "bash-completion" "Zsh" "zsh"
+SHELL_CHOICE=$__RET
+USER_CHOICE_PKGS+=("$SHELL_CHOICE")           
 
 echo "Preparing packages list..."
 
