@@ -21,10 +21,10 @@ ask_choice(){
     local option2_name=$4
     local option2_pkg=$5
 
-    echo "[CHOICE] Which $category_name do you want to install?"
-    echo "  1) $option1_name"
-    echo "  2) $option2_name"
-    read -p "Type 1 or 2 (Default 1): " choice
+    echo "[CHOICE] Which $category_name do you want to install?" >&2
+    echo "  1) $option1_name" >&2
+    echo "  2) $option2_name" >&2
+    read -p "Type 1 or 2 (Default 1): " choise
 
     case $choice in
         2)

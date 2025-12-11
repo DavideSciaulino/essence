@@ -22,7 +22,7 @@ fi
 
 # Root check
 if [ "$EUID" -eq 0 ]; then
-    print_error "Don't run as root. Use your regular user."
+    echo "Don't run as root. Use your regular user."
     exit 1
 fi
     
@@ -37,6 +37,8 @@ echo "Updating system..."
 sudo pacman -Syu --noconfirm
 
 clear
+print_header
+echo "Update finished successfully!"
 
 # Install yay
 if ! command -v yay &> /dev/null; then
@@ -111,3 +113,4 @@ if [[ " ${USER_CHOICE_PKGS[*]} " =~ " zsh " ]]; then
 fi
 
 echo "Done! Restart your system.
+EOF
