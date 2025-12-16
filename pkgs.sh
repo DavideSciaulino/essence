@@ -92,7 +92,7 @@ FM=$__RET
 USER_CHOICE_PKGS+=("$FM")   
 
 if [[ "$FM" == "yazi" ]]; then
-    USER_CHOICE_PKGS+=(ffmpeg poppler)
+    USER_CHOICE_PKGS+=(ffmpeg poppler jq resvg)
 elif [[ "$FM" == "thunar" ]]; then
     USER_CHOICE_PKGS+=(thunar-archive-plugin)
 fi
